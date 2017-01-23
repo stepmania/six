@@ -1139,6 +1139,16 @@ set(LOVE_SRC_3P_UTF8
 # add_library() here.
 
 #
+# SQLite3
+#
+
+set(LOVE_SRC_3P_SQLITE
+	src/libraries/sqlite/sqlite3.c
+)
+
+add_library(rage_3p_sqlite ${LOVE_SRC_3P_SQLITE})
+
+#
 # Wuff
 #
 
@@ -1175,6 +1185,7 @@ set(LOVE_3P
 	rage_3p_luautf8
 	rage_3p_lz4
 	rage_3p_noise1234
+	rage_3p_sqlite
 	rage_3p_wuff
 	rage_3p_xxhash
 )
