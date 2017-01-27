@@ -18,3 +18,12 @@ Included songs are **CC-NC**.
 - PhysicsFS
 - Vorbisfile
 - Theora
+
+## Supported Platforms
+------------
+
+- Windows 7+
+- Ubuntu 16.04 or any other modern Linux distro
+- Raspbian
+
+MacOS is unsupported due to lack of maintainers. The code should work, but the build is most definitely broken.
