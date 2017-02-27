@@ -1,17 +1,8 @@
 local love = require("love")
 
-local cpml = require "cpml"
-
 function love.keypressed(key)
 	if key == "escape" then
 		love.event.quit()
-	end
-end
-
-function love.keyreleased(key)
-	if key == "f" then
-		local is_fs = love.window.getFullscreen()
-		love.window.setFullscreen(not is_fs)
 	end
 end
 
@@ -37,4 +28,12 @@ function love.conf(t)
 	t.window.height = 540
 
 	io.stdout:setvbuf("no")
+end
+
+function love.load()
+	local filename = "Scripts/src/stepmania.lua"
+	assert(love.filesystem.isFile(filename), "boot script not found")
+
+	local game = love.filesystem.load(filename)
+	game()
 end

@@ -1,7 +1,46 @@
+local function post()
+	local src = [[
+		local post = require "src.post"
+		post()
+	]]
+
+	local t = love.thread.newThread("\n" .. src)
+	t:start()
+
+	local c = love.thread.getChannel("test-status")
+
+	local tests = {}
+	local function draw()
+		love.graphics.clear(love.graphics.getBackgroundColor())
+		for i, str in ipairs(tests) do
+			love.graphics.print(str, 0, i * 20)
+		end
+		love.graphics.present()
+		love.timer.sleep(0.25)
+	end
+
+	while t:isRunning() do
+		local ok = c:demand()
+		if ok == false then
+			break
+		end
+		if type(ok) == "table" then
+			table.insert(tests, string.format("%s: %s", ok[1], ok[2]))
+			draw()
+		end
+	end
+
+	table.insert(tests, "booting...")
+	draw()
+	love.timer.sleep(1.0)
+end
+
+post()
+
 local actor = require "actor"
 local anchor = require "anchor"
 local cpml = require "cpml"
-local inifile = require "inifile"
+local inifile = require "parsers.inifile"
 local memoize = require "memoize"
 
 anchor:set_overscan(0.1)
