@@ -56,6 +56,7 @@
 #	include "libraries/luautf8/lutf8lib.h"
 #endif
 
+
 // For love::graphics::setGammaCorrect.
 #ifdef LOVE_ENABLE_GRAPHICS
 #	include "graphics/Graphics.h"
@@ -123,6 +124,7 @@ extern "C"
 #endif
 	extern int luaopen_love_nogame(lua_State*);
 	extern int luaopen_love_boot(lua_State*);
+	extern int luaopen_lsqlite3(lua_State*);
 }
 
 static const luaL_Reg modules[] = {
@@ -325,6 +327,7 @@ int luaopen_love(lua_State *L)
 	// Load "common" types.
 	love::w_Data_open(L);
 
+	love::luax_preload(L, luaopen_lsqlite3, "lsqlite3");
 #ifdef LOVE_ENABLE_LUASOCKET
 	love::luasocket::__open(L);
 #endif
